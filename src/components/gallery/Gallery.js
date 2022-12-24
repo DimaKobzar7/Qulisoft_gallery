@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { StyleSheet, Text, View, Post, Image, FlatList } from "react-native";
 import { actions } from "../../features/photos";
 // import { FlatList } from "react-native-web";
+import { SinglePhoto } from "../singlePhoto/SinglePhoto";
 
 export const Gallery = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,14 @@ export const Gallery = () => {
   //  {data.map((item) => console.log(item.urls.raw))}
   const amount = useSelector((state) => state.amount);
   // console.log(amount);
+  // console.log(photos);
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.renderItem} key={item.urls.regular}>
+  //     <Image style={styles.img} source={{ uri: item.urls.regular }} />
+  //     {/* <Text>By {item.user.username}</Text> */}
+  //   </View>
+  // );
+
   return (
     // извлеки в стейт или сразу редакс используй
     // const json = response.json();
@@ -45,12 +54,24 @@ export const Gallery = () => {
         <Text style={styles.imageText} onPress={add}>
           Author name {amount}
         </Text>
+        {/* <View>
+          <FlatList data={photos} renderItem={renderItem} />
+        </View> */}
         <FlatList
           data={photos}
           keyExtractor={(item) => item.id.toString()}
-          renderItem={({ item }) => (
-            <Image style={styles.image} source={{ uri: item.urls.regular }} />
-          )}
+          // можно будет передать айтем как пропс и в другом компоненете его посмотреть
+          // renderItem={({ item }) => (
+          //   <Image style={styles.image} source={{ uri: item.urls.raw }} />
+          // )}
+          renderItem={({ item }) => <SinglePhoto props={item} />}
+          // renderItem={({ item }) => console.log(item.urls.raw)}
+          // renderItem={({ item }) =>
+          //   console.log(item.map((t) => console.log(t)))
+          // }
+          // renderItem={(item) => (
+          //   <Image style={styles.image} source={{ uri: item.urls.regular }} />
+          // )}
         />
         {/* {photos.map((item) => {
           return (
