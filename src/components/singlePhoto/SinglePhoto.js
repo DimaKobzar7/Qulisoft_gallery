@@ -17,9 +17,9 @@ export const SinglePhoto = ({ props }) => {
   // console.log("ff");
   // показывает но только одну картинку
   return (
-    <View>
-      <Image style={styles.image} source={{ uri: props.urls.raw }} />
-      <Text style={styles.imageText}>{props.user.name}</Text>
+    <View style={styles.imageWrap}>
+      <Image style={styles.image} source={{ uri: props.urls.regular }} />
+      <Text style={styles.imageText}>Author: {props.user.name}</Text>
       {/* <Image
         style={styles.image}
         source={{ uri: amount.map((item) => item.urls.raw) }}
@@ -32,9 +32,15 @@ export const SinglePhoto = ({ props }) => {
 const styles = StyleSheet.create({
   imageWrap: {
     flex: 1,
-    alignItems: "center",
+    // alignItems: "center",
     // width: '100%',
     // height: '100%',
+    // marginTop: 16,
+    // marginBottom: 48,
+    marginVertical: 24,
+    borderStyle: "solid",
+    borderBottomWidth: 2,
+    borderBottomColor: "#3949ab",
   },
 
   image: {
@@ -44,9 +50,12 @@ const styles = StyleSheet.create({
     // тоесть накладываются одна на одну
     // height: "100%",
     // width: 100,
-    height: 100,
+    // не много ли метса я под фото дал и стоит ли использовать высоту для этого?
+    // высота меньше приводит к плохому отображению картинок
+    height: 200,
     backgroundColor: "red",
-    // marginBottom: 16,
+    marginBottom: 16,
+
     // objectFit: 'contain'
     // resizeMode: "cover",
   },
@@ -55,5 +64,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
     color: "#000",
+    marginBottom: 8,
   },
 });

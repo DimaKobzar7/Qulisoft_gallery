@@ -6,6 +6,7 @@ import { actions } from "../../features/photos";
 // import { FlatList } from "react-native-web";
 import { SinglePhoto } from "../singlePhoto/SinglePhoto";
 import { photoData } from "../../API/photosApi";
+import { Navbar } from "../navbar/Navbar";
 
 // async function test(params) {
 //   let data = await fetch(
@@ -61,6 +62,7 @@ export const Gallery = () => {
   // useEffect(() => {
   //   // хотел полученые даные задиспатчить но они выглядят так что я не использовал метод для преобразавания из json
   //   // console.log(photoData().then((item) => item));
+  //   // консолит норм а результат возвращае т абракадабру
   //   console.log(photoData());
   //   // console.log("gg");
   // }, []);
@@ -74,42 +76,40 @@ export const Gallery = () => {
   // console.log(amount);
 
   return (
-    // извлеки в стейт или сразу редакс используй
-    // const json = response.json();
-    // response.then((item) => console.log(item));
-    // console.log(response);
-    // console.log(img)
-    <View style={styles.container}>
-      <View style={styles.imageWrap}>
-        <Text style={styles.imageText} onPress={add}>
+    <>
+      <Navbar />
+      <View style={styles.container}>
+        {/* <Navbar /> */}
+        <View style={styles.imageWrap}>
+          {/* <Text style={styles.imageText} onPress={add}>
           Author name
-          {/* {amount} */}
-        </Text>
-        {/* <View>
+        
+        </Text> */}
+          {/* <View>
           <FlatList data={photos} renderItem={renderItem} />
         </View> */}
-        <FlatList
-          // data={photos}
-          data={amount}
-          keyExtractor={(item) => item.id.toString()}
-          // хоть я и использовал редакс но этот тег все равно требует передачи пропсов
-          // только теперь эти пропсы тянутся с редакса
-          renderItem={({ item }) => <SinglePhoto props={item} />}
-          // // можно будет передать айтем как пропс и в другом компоненете его посмотреть
-          // renderItem={({ item }) => (
-          //   <Image style={styles.image} source={{ uri: item.urls.raw }} />
-          // )}
-          // неясно почему не через компонент не работает сразу тут!!!!????
-          // renderItem={({ item }) => <SinglePhoto props={item} />}
-          // renderItem={({ item }) => console.log(item.urls.raw)}
-          // renderItem={({ item }) =>
-          //   console.log(item.map((t) => console.log(t)))
-          // }
-          // renderItem={(item) => (
-          //   <Image style={styles.image} source={{ uri: item.urls.regular }} />
-          // )}
-        />
-        {/* {photos.map((item) => {
+          <FlatList
+            // data={photos}
+            data={amount}
+            keyExtractor={(item) => item.id.toString()}
+            // хоть я и использовал редакс но этот тег все равно требует передачи пропсов
+            // только теперь эти пропсы тянутся с редакса
+            renderItem={({ item }) => <SinglePhoto props={item} />}
+            // // можно будет передать айтем как пропс и в другом компоненете его посмотреть
+            // renderItem={({ item }) => (
+            //   <Image style={styles.image} source={{ uri: item.urls.raw }} />
+            // )}
+            // неясно почему не через компонент не работает сразу тут!!!!????
+            // renderItem={({ item }) => <SinglePhoto props={item} />}
+            // renderItem={({ item }) => console.log(item.urls.raw)}
+            // renderItem={({ item }) =>
+            //   console.log(item.map((t) => console.log(t)))
+            // }
+            // renderItem={(item) => (
+            //   <Image style={styles.image} source={{ uri: item.urls.regular }} />
+            // )}
+          />
+          {/* {photos.map((item) => {
           return (
             <Image
               style={styles.image}
@@ -118,38 +118,30 @@ export const Gallery = () => {
             />
           );
         })} */}
+        </View>
       </View>
-    </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    // width: "100%",
     // margin: '100px auto',
     // maxWidth: '1440px',
     // marginHorizontal: 'auto',
     // alignItems: "center"
-    paddingVertical: 48,
+    // paddingVertical: 48,
     paddingHorizontal: 16,
   },
 
   imageWrap: {
-    flex: 1,
-    alignItems: "center",
+    // marginTop: 16,
+    // flex: 1,
+    // alignItems: "center",
     // width: '100%',
     // height: '100%',
-  },
-
-  image: {
-    // width: "100%",
-    // height: "100%",
-    // width: 100,
-    height: 100,
-    // backgroundColor: "red",
-    // marginBottom: "16px",
-    // objectFit: 'contain'
-    // resizeMode: "cover",
   },
 });
 
