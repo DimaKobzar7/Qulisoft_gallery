@@ -7,6 +7,7 @@ import { actions } from "../../features/photos";
 import { SinglePhoto } from "../singlePhoto/SinglePhoto";
 import { photoData } from "../../API/photosApi";
 import { Navbar } from "../navbar/Navbar";
+import { SelectedPhoto } from "../selectedPhoto/SelectedPhoto";
 
 // async function test(params) {
 //   let data = await fetch(
@@ -75,52 +76,49 @@ export const Gallery = () => {
   //  {data.map((item) => console.log(item.urls.raw))}
   const amount = useSelector((state) => state.amount);
   // console.log(amount);
-
+  const [selectedPhoto, setSelectedPhoto] = useState(null);
+  console.log(selectedPhoto);
+  const showFullPhoto = (id) => {
+    setSelectedPhoto(id);
+  };
   return (
     <>
-      <Navbar />
-      <View style={styles.container}>
-        {/* <Navbar /> */}
-        <View style={styles.imageWrap}>
-          {/* <Text style={styles.imageText} onPress={add}>
-          Author name
-        
-        </Text> */}
-          {/* <View>
-          <FlatList data={photos} renderItem={renderItem} />
-        </View> */}
-          <FlatList
-            // data={photos}
-            data={amount}
-            keyExtractor={(item) => item.id.toString()}
-            // хоть я и использовал редакс но этот тег все равно требует передачи пропсов
-            // только теперь эти пропсы тянутся с редакса
-            renderItem={({ item }) => <SinglePhoto props={item} />}
-            // // можно будет передать айтем как пропс и в другом компоненете его посмотреть
-            // renderItem={({ item }) => (
-            //   <Image style={styles.image} source={{ uri: item.urls.raw }} />
-            // )}
-            // неясно почему не через компонент не работает сразу тут!!!!????
-            // renderItem={({ item }) => <SinglePhoto props={item} />}
-            // renderItem={({ item }) => console.log(item.urls.raw)}
-            // renderItem={({ item }) =>
-            //   console.log(item.map((t) => console.log(t)))
-            // }
-            // renderItem={(item) => (
-            //   <Image style={styles.image} source={{ uri: item.urls.regular }} />
-            // )}
-          />
-          {/* {photos.map((item) => {
-          return (
-            <Image
-              style={styles.image}
-              key={item.id}
-              source={{ uri: item.urls.regular }}
-            />
-          );
-        })} */}
-        </View>
-      </View>
+      {!selectedPhoto ? (
+        <>
+          <Navbar />
+          <View style={styles.container}>
+            {/* <Navbar /> */}
+            <View style={styles.imageWrap}>
+              <FlatList
+                // data={photos}
+                data={amount}
+                keyExtractor={(item) => item.id.toString()}
+                // хоть я и использовал редакс но этот тег все равно требует передачи пропсов
+                // только теперь эти пропсы тянутся с редакса
+                renderItem={({ item }) => (
+                  <SinglePhoto props={item} test={showFullPhoto} />
+                )}
+                // // можно будет передать айтем как пропс и в другом компоненете его посмотреть
+                // renderItem={({ item }) => (
+                //   <Image style={styles.image} source={{ uri: item.urls.raw }} />
+                // )}
+                // неясно почему не через компонент не работает сразу тут!!!!????
+                // renderItem={({ item }) => <SinglePhoto props={item} />}
+                // renderItem={({ item }) => console.log(item.urls.raw)}
+                // renderItem={({ item }) =>
+                //   console.log(item.map((t) => console.log(t)))
+                // }
+                // renderItem={(item) => (
+                //   <Image style={styles.image} source={{ uri: item.urls.regular }} />
+                // )}
+              />
+            </View>
+          </View>
+        </>
+      ) : (
+        // <Text>here must be photo</Text>
+        <SelectedPhoto />
+      )}
     </>
   );
 };

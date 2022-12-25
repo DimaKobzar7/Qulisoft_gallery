@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 
-export const SinglePhoto = ({ props }) => {
+export const SinglePhoto = ({ props, test }) => {
   // const [photos, setPhotos] = useState([]);
   const amount = useSelector((state) => state.amount);
   // console.log("gg");
@@ -25,12 +25,13 @@ export const SinglePhoto = ({ props }) => {
   // console.log("ff");
   // показывает но только одну картинку
 
-  const showFullPhoto = (id) => {
-    console.log(id);
-  };
+  // const showFullPhoto = (id) => {
+  //   console.log(id);
+  // };
+  // console.log(test);
   return (
     <View style={styles.imageWrap}>
-      <TouchableOpacity onPress={() => showFullPhoto(props.id)}>
+      <TouchableOpacity onPress={() => test(props.id)}>
         <Image style={styles.image} source={{ uri: props.urls.regular }} />
       </TouchableOpacity>
 
