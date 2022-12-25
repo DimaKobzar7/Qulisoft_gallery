@@ -1,6 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { StyleSheet, Text, View, Post, Image, FlatList } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Post,
+  Image,
+  FlatList,
+  TouchableOpacity,
+} from "react-native";
 import { useSelector } from "react-redux";
 
 export const SinglePhoto = ({ props }) => {
@@ -16,9 +24,16 @@ export const SinglePhoto = ({ props }) => {
   // но ничего не выводится
   // console.log("ff");
   // показывает но только одну картинку
+
+  const showFullPhoto = (id) => {
+    console.log(id);
+  };
   return (
     <View style={styles.imageWrap}>
-      <Image style={styles.image} source={{ uri: props.urls.regular }} />
+      <TouchableOpacity onPress={() => showFullPhoto(props.id)}>
+        <Image style={styles.image} source={{ uri: props.urls.regular }} />
+      </TouchableOpacity>
+
       <Text style={styles.imageText}>Author: {props.user.name}</Text>
       {/* <Image
         style={styles.image}

@@ -16,6 +16,7 @@ import { Navbar } from "../navbar/Navbar";
 //   console.log(data);
 // }
 
+// т=ут еще и фотки с одного ключа меняються переодически и это вызывает баг что картинки не отображаются
 export const Gallery = () => {
   const dispatch = useDispatch();
 
