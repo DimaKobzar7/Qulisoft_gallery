@@ -5,43 +5,73 @@ import { StyleSheet, Text, View, Post, Image, FlatList } from "react-native";
 import { actions } from "../../features/photos";
 // import { FlatList } from "react-native-web";
 import { SinglePhoto } from "../singlePhoto/SinglePhoto";
+import { photoData } from "../../API/photosApi";
+
+// async function test(params) {
+//   let data = await fetch(
+//     "https://api.unsplash.com/photos/?client_id=ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9"
+//   );
+
+//   console.log(data);
+// }
 
 export const Gallery = () => {
   const dispatch = useDispatch();
-  const [photos, setPhotos] = useState([]);
 
-  // это показывает инфломацию по такому айди
+  // console.log(photoData());
+  // console.log("gg");
+  // const [photos, setPhotos] = useState([]);
+  // нужна чтобы получить данные из фетча и эта функция кидает все в редакс
+  const add = (value) => dispatch(actions.add(value));
+
+  // это работает!!!
   useEffect(() => {
-    fetch(
-      "https://api.unsplash.com/photos/?client_id=ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9"
-    )
-      .then((response) => response.json())
-      .then((json) => setPhotos(json));
+    // async function getData() {
+    //   try {
+    //     let response = await fetch(
+    //       "https://api.unsplash.com/photos/?client_id=ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9"
+    //     );
+    //     response = await response.json();
+
+    //     dispatch(actions.add(response));
+    //     (async () => {
+
+    //     } )();
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // }
+
+    // getData();
+
+    (async () => {
+      try {
+        let response = await fetch(
+          "https://api.unsplash.com/photos/?client_id=ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9"
+        );
+        response = await response.json();
+
+        dispatch(actions.add(response));
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   }, []);
 
-  // console.log(data);
+  // useEffect(() => {
+  //   // хотел полученые даные задиспатчить но они выглядят так что я не использовал метод для преобразавания из json
+  //   // console.log(photoData().then((item) => item));
+  //   console.log(photoData());
+  //   // console.log("gg");
+  // }, []);
+
+  // console.log(photos);
 
   // тут мне надо из апи кидать в редах инфу с картинками
-  const add = () => dispatch(actions.add(4));
-
-  // rest instruction
-  // "urls": {
-  //   "raw": "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d",
-  //   "full": "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg",
-  //   "regular": "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=1080&fit=max",
-  //   "small": "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=400&fit=max",
-  //   "thumb": "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=200&fit=max"
-  // },
+  // const add = () => dispatch(actions.add(4));
   //  {data.map((item) => console.log(item.urls.raw))}
   const amount = useSelector((state) => state.amount);
   // console.log(amount);
-  // console.log(photos);
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.renderItem} key={item.urls.regular}>
-  //     <Image style={styles.img} source={{ uri: item.urls.regular }} />
-  //     {/* <Text>By {item.user.username}</Text> */}
-  //   </View>
-  // );
 
   return (
     // извлеки в стейт или сразу редакс используй
@@ -52,19 +82,25 @@ export const Gallery = () => {
     <View style={styles.container}>
       <View style={styles.imageWrap}>
         <Text style={styles.imageText} onPress={add}>
-          Author name {amount}
+          Author name
+          {/* {amount} */}
         </Text>
         {/* <View>
           <FlatList data={photos} renderItem={renderItem} />
         </View> */}
         <FlatList
-          data={photos}
+          // data={photos}
+          data={amount}
           keyExtractor={(item) => item.id.toString()}
-          // можно будет передать айтем как пропс и в другом компоненете его посмотреть
+          // хоть я и использовал редакс но этот тег все равно требует передачи пропсов
+          // только теперь эти пропсы тянутся с редакса
+          renderItem={({ item }) => <SinglePhoto props={item} />}
+          // // можно будет передать айтем как пропс и в другом компоненете его посмотреть
           // renderItem={({ item }) => (
           //   <Image style={styles.image} source={{ uri: item.urls.raw }} />
           // )}
-          renderItem={({ item }) => <SinglePhoto props={item} />}
+          // неясно почему не через компонент не работает сразу тут!!!!????
+          // renderItem={({ item }) => <SinglePhoto props={item} />}
           // renderItem={({ item }) => console.log(item.urls.raw)}
           // renderItem={({ item }) =>
           //   console.log(item.map((t) => console.log(t)))
@@ -106,17 +142,22 @@ const styles = StyleSheet.create({
   },
 
   image: {
-    width: "100%",
-    height: "100%",
+    // width: "100%",
+    // height: "100%",
     // width: 100,
-    // height: 100,
+    height: 100,
     // backgroundColor: "red",
     // marginBottom: "16px",
     // objectFit: 'contain'
     // resizeMode: "cover",
   },
-
-  //  imageText: {
-  //   textAlign: 'center'
-  //  }
 });
+
+// rest instruction
+// "urls": {
+//   "raw": "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d",
+//   "full": "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg",
+//   "regular": "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=1080&fit=max",
+//   "small": "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=400&fit=max",
+//   "thumb": "https://images.unsplash.com/photo-1417325384643-aac51acc9e5d?q=75&fm=jpg&w=200&fit=max"
+// },

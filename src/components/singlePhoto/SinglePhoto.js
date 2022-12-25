@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
 
 import { StyleSheet, Text, View, Post, Image, FlatList } from "react-native";
+import { useSelector } from "react-redux";
 
 export const SinglePhoto = ({ props }) => {
   // const [photos, setPhotos] = useState([]);
+  const amount = useSelector((state) => state.amount);
+  // console.log("gg");
+  // console.log(amount.urls);
+  // console.log(amount.map((item) => item.urls.raw));
 
   // console.log(props.urls.full);
   // console.log(props.user.name);
@@ -15,6 +20,11 @@ export const SinglePhoto = ({ props }) => {
     <View>
       <Image style={styles.image} source={{ uri: props.urls.raw }} />
       <Text style={styles.imageText}>{props.user.name}</Text>
+      {/* <Image
+        style={styles.image}
+        source={{ uri: amount.map((item) => item.urls.raw) }}
+      />
+      <Text style={styles.imageText}>{props.user.name}</Text> */}
     </View>
   );
 };
@@ -29,7 +39,7 @@ const styles = StyleSheet.create({
 
   image: {
     // flex: 1,
-    width: "100%",
+    // width: "100%",
     // при высоте в 100 процентов накрывает текст картинка или все картинки просто перекрывапют друг друга
     // тоесть накладываются одна на одну
     // height: "100%",
