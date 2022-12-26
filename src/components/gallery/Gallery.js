@@ -122,7 +122,7 @@ export const Gallery = () => {
         </>
       ) : (
         // <Text>here must be photo</Text>
-        <SelectedPhoto />
+        <SelectedPhoto selectedPhoto={selectedPhoto} />
       )}
     </>
   );

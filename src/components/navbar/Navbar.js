@@ -1,10 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 export const Navbar = ({ textChange, setSelectedPhoto }) => {
   // console.log(textChange);
   // кнопка только внизу нажимается и это наверное из за шапки андроида и там проста не кликабельная зона
   const backToGallery = () => {
-    console.log("t");
+    // console.log("t");
     setSelectedPhoto(null);
   };
   return (
@@ -12,6 +12,10 @@ export const Navbar = ({ textChange, setSelectedPhoto }) => {
       {!textChange ? null : (
         <TouchableOpacity style={styles.button} onPress={backToGallery}>
           <Text>gg</Text>
+          <Image
+            style={styles.arrow}
+            source={require("../../images/svg/back-arrow_icon-icons.com_72866.svg")}
+          />
         </TouchableOpacity>
       )}
       <Text style={styles.text}>
@@ -66,5 +70,10 @@ const styles = StyleSheet.create({
   button: {
     marginRight: 24,
     backgroundColor: "red",
+  },
+
+  arrow: {
+    height: 24,
+    width: 24,
   },
 });
