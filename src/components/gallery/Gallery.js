@@ -77,15 +77,16 @@ export const Gallery = () => {
   const amount = useSelector((state) => state.amount);
   // console.log(amount);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  console.log(selectedPhoto);
+  const [fullPhoto, setFullPhoto] = useState(false);
+  // console.log(selectedPhoto);
   const showFullPhoto = (id) => {
     setSelectedPhoto(id);
   };
   return (
     <>
+      <Navbar textChange={selectedPhoto} setSelectedPhoto={setSelectedPhoto} />
       {!selectedPhoto ? (
         <>
-          <Navbar />
           <View style={styles.container}>
             {/* <Navbar /> */}
             <View style={styles.imageWrap}>
@@ -96,7 +97,11 @@ export const Gallery = () => {
                 // хоть я и использовал редакс но этот тег все равно требует передачи пропсов
                 // только теперь эти пропсы тянутся с редакса
                 renderItem={({ item }) => (
-                  <SinglePhoto props={item} test={showFullPhoto} />
+                  <SinglePhoto
+                    props={item}
+                    test={showFullPhoto}
+                    showOnePhoto={setFullPhoto}
+                  />
                 )}
                 // // можно будет передать айтем как пропс и в другом компоненете его посмотреть
                 // renderItem={({ item }) => (

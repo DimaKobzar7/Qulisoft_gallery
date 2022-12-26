@@ -11,7 +11,7 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 
-export const SinglePhoto = ({ props, test }) => {
+export const SinglePhoto = ({ props, test, showOnePhoto }) => {
   // const [photos, setPhotos] = useState([]);
   const amount = useSelector((state) => state.amount);
   // console.log("gg");
@@ -29,6 +29,7 @@ export const SinglePhoto = ({ props, test }) => {
   //   console.log(id);
   // };
   // console.log(test);
+  // console.log(showOnePhoto);
   return (
     <View style={styles.imageWrap}>
       <TouchableOpacity onPress={() => test(props.id)}>
