@@ -3,38 +3,16 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { StyleSheet, Text, View, Post, Image, FlatList } from "react-native";
 import { actions } from "../../features/photos";
-// import { FlatList } from "react-native-web";
 import { SinglePhoto } from "../singlePhoto/SinglePhoto";
 import { photoData } from "../../API/photosApi";
 import { Navbar } from "../navbar/Navbar";
 import { SelectedPhoto } from "../selectedPhoto/SelectedPhoto";
 
-// т=ут еще и фотки с одного ключа меняються переодически и это вызывает баг что картинки не отображаются
 export const Gallery = () => {
   const dispatch = useDispatch();
-
-  // console.log(photoData());
-  // console.log("gg");
-  // const [photos, setPhotos] = useState([]);
   // нужна чтобы получить данные из фетча и эта функция кидает все в редакс
-  const add = (value) => dispatch(actions.add(value));
-
-  // // это работает!!!
-  // useEffect(() => {
-
-  //   (async () => {
-  //     try {
-  //       let response = await fetch(
-  //         "https://api.unsplash.com/photos/?client_id=ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9"
-  //       );
-  //       response = await response.json();
-
-  //       dispatch(actions.add(response));
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   })();
-  // }, []);
+  // а теперь и ез нее раотает все
+  // const add = (value) => dispatch(actions.add(value));
 
   // тут надо диспатчить а в юз ефекте просто вызывать функцию
   // сделай лоудер на белом экране пока картинка грузится
@@ -48,10 +26,6 @@ export const Gallery = () => {
   };
 
   useEffect(() => {
-    // хотел полученые даные задиспатчить но они выглядят так что я не использовал метод для преобразавания из json
-    // console.log(photoData().then((item) => item));
-    // консолит норм а результат возвращае т абракадабру
-    // console.log(photoData());
     testData();
   }, []);
 

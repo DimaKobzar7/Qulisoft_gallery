@@ -1,28 +1,60 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
 export const Navbar = ({ textChange, setSelectedPhoto }) => {
-  // console.log(textChange);
-  // кнопка только внизу нажимается и это наверное из за шапки андроида и там проста не кликабельная зона
   const backToGallery = () => {
     // console.log("t");
     setSelectedPhoto(null);
   };
-  // сделай чтобы тут по одному условию показывало одну верстку или другую а не так как сейчас куча условий что проверяется
+
   return (
-    <View style={!textChange ? styles.navbar : styles.navbarOnePhoto}>
-      {!textChange ? null : (
-        <TouchableOpacity style={styles.button} onPress={backToGallery}>
-          <Text>gg</Text>
-          <Image
-            style={styles.arrow}
-            source={require("../../images/svg/back-arrow_icon-icons.com_72866.svg")}
-          />
-        </TouchableOpacity>
+    // <View style={!textChange ? styles.navbar : styles.navbarOnePhoto}>
+    //   {!textChange ? null : (
+    //     <TouchableOpacity style={styles.button} onPress={backToGallery}>
+    //       <Text>gg</Text>
+    //       <Image
+    //         style={styles.arrow}
+    //         source={require("../../images/svg/back-arrow_icon-icons.com_72866.svg")}
+    //       />
+    //     </TouchableOpacity>
+    //   )}
+    //   <Text style={styles.text}>
+    //     {!textChange ? "Awesome gallery" : "Back to gallery"}
+    //   </Text>
+    // </View>
+    <>
+      {!textChange ? (
+        <View style={styles.navbar}>
+          <Text style={styles.text}>Awesome gallery</Text>
+        </View>
+      ) : (
+        <View style={styles.navbarOnePhoto}>
+          <TouchableOpacity style={styles.button} onPress={backToGallery}>
+            <Text>gg</Text>
+            <Image
+              style={styles.arrow}
+              source={require("../../images/svg/back-arrow_icon-icons.com_72866.svg")}
+            />
+          </TouchableOpacity>
+
+          <Text style={styles.text}>Back to gallery</Text>
+        </View>
       )}
-      <Text style={styles.text}>
-        {!textChange ? "Awesome gallery" : "Back to gallery"}
-      </Text>
-    </View>
+    </>
+
+    // <View style={!textChange ? styles.navbar : styles.navbarOnePhoto}>
+    //   {!textChange ? null : (
+    //     <TouchableOpacity style={styles.button} onPress={backToGallery}>
+    //       <Text>gg</Text>
+    //       <Image
+    //         style={styles.arrow}
+    //         source={require("../../images/svg/back-arrow_icon-icons.com_72866.svg")}
+    //       />
+    //     </TouchableOpacity>
+    //   )}
+    //   <Text style={styles.text}>
+    //     {!textChange ? "Awesome gallery" : "Back to gallery"}
+    //   </Text>
+    // </View>
   );
 };
 
