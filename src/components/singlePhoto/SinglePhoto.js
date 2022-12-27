@@ -14,22 +14,7 @@ import { useSelector } from "react-redux";
 export const SinglePhoto = ({ props, test, showOnePhoto }) => {
   // const [photos, setPhotos] = useState([]);
   const amount = useSelector((state) => state.amount);
-  // console.log("gg");
-  // console.log(amount.urls);
-  // console.log(amount.map((item) => item.urls.raw));
 
-  // console.log(props.urls.full);
-  // console.log(props.user.name);
-  // компонент подключен все ок
-  // но ничего не выводится
-  // console.log("ff");
-  // показывает но только одну картинку
-
-  // const showFullPhoto = (id) => {
-  //   console.log(id);
-  // };
-  // console.log(test);
-  // console.log(showOnePhoto);
   return (
     <View style={styles.imageWrap}>
       <TouchableOpacity onPress={() => test(props.id)}>

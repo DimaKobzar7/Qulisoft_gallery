@@ -9,14 +9,6 @@ import { photoData } from "../../API/photosApi";
 import { Navbar } from "../navbar/Navbar";
 import { SelectedPhoto } from "../selectedPhoto/SelectedPhoto";
 
-// async function test(params) {
-//   let data = await fetch(
-//     "https://api.unsplash.com/photos/?client_id=ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9"
-//   );
-
-//   console.log(data);
-// }
-
 // т=ут еще и фотки с одного ключа меняються переодически и это вызывает баг что картинки не отображаются
 export const Gallery = () => {
   const dispatch = useDispatch();
@@ -27,53 +19,42 @@ export const Gallery = () => {
   // нужна чтобы получить данные из фетча и эта функция кидает все в редакс
   const add = (value) => dispatch(actions.add(value));
 
-  // это работает!!!
-  useEffect(() => {
-    // async function getData() {
-    //   try {
-    //     let response = await fetch(
-    //       "https://api.unsplash.com/photos/?client_id=ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9"
-    //     );
-    //     response = await response.json();
-
-    //     dispatch(actions.add(response));
-    //     (async () => {
-
-    //     } )();
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // }
-
-    // getData();
-
-    (async () => {
-      try {
-        let response = await fetch(
-          "https://api.unsplash.com/photos/?client_id=ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9"
-        );
-        response = await response.json();
-
-        dispatch(actions.add(response));
-      } catch (error) {
-        console.log(error);
-      }
-    })();
-  }, []);
-
+  // // это работает!!!
   // useEffect(() => {
-  //   // хотел полученые даные задиспатчить но они выглядят так что я не использовал метод для преобразавания из json
-  //   // console.log(photoData().then((item) => item));
-  //   // консолит норм а результат возвращае т абракадабру
-  //   console.log(photoData());
-  //   // console.log("gg");
+
+  //   (async () => {
+  //     try {
+  //       let response = await fetch(
+  //         "https://api.unsplash.com/photos/?client_id=ab3411e4ac868c2646c0ed488dfd919ef612b04c264f3374c97fff98ed253dc9"
+  //       );
+  //       response = await response.json();
+
+  //       dispatch(actions.add(response));
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   })();
   // }, []);
 
-  // console.log(photos);
+  // тут надо диспатчить а в юз ефекте просто вызывать функцию
+  // сделай лоудер на белом экране пока картинка грузится
+  // а сами фото в через контейнер и в нем обджект фит выровняй по центру
+  const testData = async () => {
+    const result = await photoData();
 
-  // тут мне надо из апи кидать в редах инфу с картинками
-  // const add = () => dispatch(actions.add(4));
-  //  {data.map((item) => console.log(item.urls.raw))}
+    // console.log(result);
+    dispatch(actions.add(result));
+    return result;
+  };
+
+  useEffect(() => {
+    // хотел полученые даные задиспатчить но они выглядят так что я не использовал метод для преобразавания из json
+    // console.log(photoData().then((item) => item));
+    // консолит норм а результат возвращае т абракадабру
+    // console.log(photoData());
+    testData();
+  }, []);
+
   const amount = useSelector((state) => state.amount);
   // console.log(amount);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
@@ -88,14 +69,10 @@ export const Gallery = () => {
       {!selectedPhoto ? (
         <>
           <View style={styles.container}>
-            {/* <Navbar /> */}
             <View style={styles.imageWrap}>
               <FlatList
-                // data={photos}
                 data={amount}
                 keyExtractor={(item) => item.id.toString()}
-                // хоть я и использовал редакс но этот тег все равно требует передачи пропсов
-                // только теперь эти пропсы тянутся с редакса
                 renderItem={({ item }) => (
                   <SinglePhoto
                     props={item}
@@ -103,19 +80,6 @@ export const Gallery = () => {
                     showOnePhoto={setFullPhoto}
                   />
                 )}
-                // // можно будет передать айтем как пропс и в другом компоненете его посмотреть
-                // renderItem={({ item }) => (
-                //   <Image style={styles.image} source={{ uri: item.urls.raw }} />
-                // )}
-                // неясно почему не через компонент не работает сразу тут!!!!????
-                // renderItem={({ item }) => <SinglePhoto props={item} />}
-                // renderItem={({ item }) => console.log(item.urls.raw)}
-                // renderItem={({ item }) =>
-                //   console.log(item.map((t) => console.log(t)))
-                // }
-                // renderItem={(item) => (
-                //   <Image style={styles.image} source={{ uri: item.urls.regular }} />
-                // )}
               />
             </View>
           </View>

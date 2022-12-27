@@ -7,6 +7,7 @@ export const Navbar = ({ textChange, setSelectedPhoto }) => {
     // console.log("t");
     setSelectedPhoto(null);
   };
+  // сделай чтобы тут по одному условию показывало одну верстку или другую а не так как сейчас куча условий что проверяется
   return (
     <View style={!textChange ? styles.navbar : styles.navbarOnePhoto}>
       {!textChange ? null : (
